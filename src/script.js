@@ -5,8 +5,6 @@ import Guify from 'guify';
 import terrainVertexShader from './shaders/terrain/vertex.glsl';
 import terrainFragmentShader from './shaders/terrain/fragment.glsl';
 
-console.log(terrainVertexShader, terrainFragmentShader);
-
 /**
  * Base
  */
@@ -78,9 +76,9 @@ terrain.geometry = new THREE.PlaneGeometry(1, 1, 100, 100);
 terrain.geometry.rotateX(-Math.PI * 0.5);
 
 // Material
-terrain.material = new THREE.MeshBasicMaterial({
-  color: 0xffffff,
-  wireframe: true,
+terrain.material = new THREE.ShaderMaterial({
+  vertexShader: terrainVertexShader,
+  fragmentShader: terrainFragmentShader,
 });
 
 // Mesh
