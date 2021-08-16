@@ -1,6 +1,11 @@
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import Guify from 'guify';
+import terrainVertexShader from './shaders/terrain/vertex.glsl';
+import terrainFragmentShader from './shaders/terrain/fragment.glsl';
+
+console.log(terrainVertexShader, terrainFragmentShader);
 
 /**
  * Base
@@ -10,6 +15,17 @@ const canvas = document.querySelector('canvas.webgl');
 
 // Scene
 const scene = new THREE.Scene();
+
+/**
+ * Debug
+ */
+
+const gui = new Guify({
+  align: 'right',
+  theme: 'dark',
+  // width: '300',
+  barMode: 'none',
+});
 
 /**
  * Sizes
@@ -58,7 +74,7 @@ controls.enableDamping = true;
 const terrain = {};
 
 // Geometry
-terrain.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+terrain.geometry = new THREE.PlaneGeometry(1, 1, 100, 100);
 terrain.geometry.rotateX(-Math.PI * 0.5);
 
 // Material
@@ -69,6 +85,7 @@ terrain.material = new THREE.MeshBasicMaterial({
 
 // Mesh
 terrain.mesh = new THREE.Mesh(terrain.geometry, terrain.material);
+terrain.mesh.scale.set(10, 10, 10);
 scene.add(terrain.mesh);
 
 // /**
