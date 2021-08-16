@@ -53,13 +53,32 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
 /**
- * Cube
+ * Terrain
  */
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: 0xff0000 })
-);
-scene.add(cube);
+const terrain = {};
+
+// Geometry
+terrain.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+terrain.geometry.rotateX(-Math.PI * 0.5);
+
+// Material
+terrain.material = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  wireframe: true,
+});
+
+// Mesh
+terrain.mesh = new THREE.Mesh(terrain.geometry, terrain.material);
+scene.add(terrain.mesh);
+
+// /**
+//  * Cube
+//  */
+// const cube = new THREE.Mesh(
+//   new THREE.BoxGeometry(1, 1, 1),
+//   new THREE.MeshBasicMaterial({ color: 0xff0000 })
+// );
+// scene.add(cube);
 
 /**
  * Renderer
@@ -68,6 +87,8 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
 });
+renderer.setClearColor(0x111111, 1);
+renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
